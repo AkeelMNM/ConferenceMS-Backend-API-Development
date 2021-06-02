@@ -1,31 +1,34 @@
 const { save, getById, removeById, update} = require('../dal/Workshop.dao');
-const uuid = require('uuid');
 
 /**
  * @important  file input should be separated when saving the file i'm only saving the location of the file
  */
 
-const addWorkShopPaper = async ({presenterName, workShopTitle, email, affiliation, contactNo, fileLocation}) =>{
+const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, affiliation,contactNumber,fileLocation}) =>{
     let WorkShop ={
-        id:uuid.v4(),
+        userID,
         presenterName,
         workShopTitle,
         email,
         affiliation,
+        contactNumber,
         date: new Date(),
-        contactNo,
+        proposalStatus:"pending",
         fileLocation
     }
 
     return await save(WorkShop);
 }
 
-const getWorkShopById = async ({id}) => {
-    return await getById(id);
+const getWorkShopById = async ({userID}) => {
+    return await getById(userID);
 }
 
-const updateWorkShop = async (id,{presenterName, workShopTitle, email, affiliation, contactNo, fileLocation}) =>{
-    return await update(id,{presenterName, workShopTitle, email, affiliation, date:new Date(), contactNo, fileLocation});
+const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate,proposalStatus, fileLocation}) =>{
+    return await update(id,
+        {
+            userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate:new Date(),proposalStatus, fileLocation
+        });
 }
 
 const removeWorkShopById = async ({id}) => {

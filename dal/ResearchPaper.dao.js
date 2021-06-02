@@ -1,20 +1,26 @@
-const researchPaper = require('./').db('researchPaper').collection('researchPaper');
+const researchPaper = require('./').db('conferenceMT').collection('ResearchPaperColl');
 
-const save = async ({id, authorName, paperTitle, email, date, fileLocation}) =>{
-    const result = await researchPaper.insertOne({id, authorName, paperTitle, email, date, fileLocation});
+const save = async (
+    {userID,authorName, paperTitle, email, submittedDate, researchPFileLocation,submissionStatus,payment,paymentStatus}) =>{
+    const result = await researchPaper.insertOne(
+        {
+            userID,authorName, paperTitle, email, submittedDate, researchPFileLocation,submissionStatus,payment,paymentStatus
+        });
     return  result.ops[0];
 }
 
-const getById = async (id) =>{
-    return await researchPaper.findOne({id});
+const getById = async (userID) =>{
+    const courser =  await researchPaper.find({userID:userID});
+    return courser.toArray();
 }
 
 const removeById = async (id) =>{
     return await researchPaper.removeOne({id});
 }
 
-const update = async (id ,{authorName, paperTitle, email, date, fileLocation}) =>{
-    const result = await researchPaper.replaceOne({id},{authorName, paperTitle, email, date, fileLocation});
+const update = async (id ,{userID, authorName, paperTitle, email, submittedDate, researchPFileLocation,submissionStatus,payment,paymentStatus}) =>{
+    const result = await researchPaper.replaceOne({id},{
+        userID, authorName, paperTitle, email, submittedDate, researchPFileLocation,submissionStatus,payment,paymentStatus});
     return  result.ops[0];
 }
 

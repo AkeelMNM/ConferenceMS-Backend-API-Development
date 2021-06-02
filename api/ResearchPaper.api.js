@@ -1,29 +1,34 @@
 const { save, getById, removeById, update} = require('../dal/ResearchPaper.dao');
-const uuid = require('uuid');
 
 /**
  * @important  file input should be separated when saving the file i'm only saving the location of the file
  */
 
-const addResearchPaper = async ({authorName, paperTitle, email, fileLocation}) =>{
+const addResearchPaper = async ({userID,authorName, paperTitle, email,researchPFileLocation}) =>{
     let ResearchPaper ={
-        id:uuid.v4(),
+        userID,
         authorName,
         paperTitle,
         email,
-        date: new Date(),
-        fileLocation
+        submittedDate: new Date(),
+        researchPFileLocation,
+        submissionStatus:"pending",
+        payment:0,
+        paymentStatus:"Not Available"
     }
 
     return await save(ResearchPaper);
 }
 
-const getResearchPaperById = async ({id}) => {
-    return await getById(id);
+const getResearchPaperById = async (userID) => {
+    return await getById(userID);
 }
 
-const updateResearchPaper = async (id,{authorName, paperTitle, email, fileLocation}) =>{
-    return await update(id,{authorName,paperTitle,email,date:new Date(),fileLocation});
+const updateResearchPaper = async (id,{userID,authorName, paperTitle, email,researchPFileLocation,submissionStatus,payment,paymentStatus}) =>{
+    return await update(id,
+        {
+            userID,authorName, paperTitle, email, submittedDate:new Date(), researchPFileLocation,submissionStatus,payment,paymentStatus
+        });
 }
 
 const removeResearchPaperById = async ({id}) => {

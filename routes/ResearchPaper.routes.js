@@ -1,7 +1,7 @@
 const Router = require('@koa/router');
 
 const {addResearchPaper, getResearchPaperById, updateResearchPaper, removeResearchPaperById} = require('../api/ResearchPaper.api');
-
+const {addResearchPaperFile} = require('../api/ResearchPFileUpload.api');
 const router = new Router({
     prefix:'/researchPaper'
 })
@@ -10,4 +10,36 @@ const router = new Router({
  * @important  file input should be separated when saving the file i'm only saving the location of the file
  */
 
-router.get('/',)
+/*router.post('/reFile',async ctx => {
+    let file = ctx.request.body;
+    file = await addResearchPaperFile(file);
+    ctx.response.state = 201;
+    ctx.body =file;
+})*/
+
+router.post('/',async ctx => {
+    let researchPaper = ctx.request.body;
+    researchPaper = await addResearchPaper(researchPaper);
+    ctx.response.state = 201;
+    ctx.body =researchPaper;
+})
+
+router.get('/:id', async ctx =>{
+    const userID = ctx.params.id;
+    ctx.body = await getResearchPaperById(userID);
+});
+
+router.put('/:id',async ctx =>{
+    const id = ctx.params.id;
+    let researchPaper = ctx.request.body;
+    ctx.body = await updateResearchPaper(id,researchPaper);
+    ctx.body =researchPaper;
+})
+
+router.del('/:id',async ctx =>{
+    const id = ctx.params.id;
+    ctx.response.state = 204;
+    ctx.body = await removeResearchPaperById(id);
+})
+
+module.exports = router;
