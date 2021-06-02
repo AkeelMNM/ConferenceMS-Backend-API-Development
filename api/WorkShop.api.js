@@ -1,4 +1,4 @@
-const { save, getById, removeById, update} = require('../dal/Workshop.dao');
+const { save,getByUserId, getById, removeById, update} = require('../dal/Workshop.dao');
 
 /**
  * @important  file input should be separated when saving the file i'm only saving the location of the file
@@ -12,7 +12,7 @@ const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, af
         email,
         affiliation,
         contactNumber,
-        date: new Date(),
+        submittedDate: new Date().toISOString().slice(0, 10),
         proposalStatus:"pending",
         fileLocation
     }
@@ -20,14 +20,25 @@ const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, af
     return await save(WorkShop);
 }
 
-const getWorkShopById = async ({userID}) => {
-    return await getById(userID);
+const getWorkShopByUserId = async (userID) => {
+    return await getByUserId(userID);
+}
+
+const getWorkShopById = async (id) => {
+    return await getById(id);
 }
 
 const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate,proposalStatus, fileLocation}) =>{
     return await update(id,
         {
-            userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate:new Date(),proposalStatus, fileLocation
+            userID,
+            presenterName,
+            workShopTitle,
+            email, affiliation,
+            contactNumber,
+            submittedDate:new Date().toISOString().slice(0, 10),
+            proposalStatus,
+            fileLocation
         });
 }
 
@@ -37,6 +48,7 @@ const removeWorkShopById = async ({id}) => {
 
 module.exports = {
     addWorkShopPaper,
+    getWorkShopByUserId,
     getWorkShopById,
     updateWorkShop,
     removeWorkShopById

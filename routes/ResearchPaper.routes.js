@@ -1,6 +1,6 @@
 const Router = require('@koa/router');
 
-const {addResearchPaper, getResearchPaperById, updateResearchPaper, removeResearchPaperById} = require('../api/ResearchPaper.api');
+const {addResearchPaper, getResearchPaperByUserId,getResearchPaperById, updateResearchPaper, removeResearchPaperById} = require('../api/ResearchPaper.api');
 const {addResearchPaperFile} = require('../api/ResearchPFileUpload.api');
 const router = new Router({
     prefix:'/researchPaper'
@@ -26,7 +26,12 @@ router.post('/',async ctx => {
 
 router.get('/:id', async ctx =>{
     const userID = ctx.params.id;
-    ctx.body = await getResearchPaperById(userID);
+    ctx.body = await getResearchPaperByUserId(userID);
+});
+
+router.get('paper/:id', async ctx =>{
+    const id = ctx.params.id;
+    ctx.body = await getResearchPaperById(id);
 });
 
 router.put('/:id',async ctx =>{

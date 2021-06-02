@@ -1,4 +1,4 @@
-const { save, getById, removeById, update} = require('../dal/ResearchPaper.dao');
+const { save, getByUserId,getById, removeById, update} = require('../dal/ResearchPaper.dao');
 
 /**
  * @important  file input should be separated when saving the file i'm only saving the location of the file
@@ -10,24 +10,34 @@ const addResearchPaper = async ({userID,authorName, paperTitle, email,researchPF
         authorName,
         paperTitle,
         email,
-        submittedDate: new Date(),
+        submittedDate: new Date().toISOString().slice(0, 10),
         researchPFileLocation,
         submissionStatus:"pending",
         payment:0,
         paymentStatus:"Not Available"
     }
-
     return await save(ResearchPaper);
 }
 
-const getResearchPaperById = async (userID) => {
-    return await getById(userID);
+const getResearchPaperByUserId = async (userID) => {
+    return await getByUserId(userID);
+}
+
+const getResearchPaperById = async (id) => {
+    return await getById(id);
 }
 
 const updateResearchPaper = async (id,{userID,authorName, paperTitle, email,researchPFileLocation,submissionStatus,payment,paymentStatus}) =>{
     return await update(id,
         {
-            userID,authorName, paperTitle, email, submittedDate:new Date(), researchPFileLocation,submissionStatus,payment,paymentStatus
+            userID,authorName,
+            paperTitle,
+            email,
+            submittedDate:new Date().toISOString().slice(0, 10),
+            researchPFileLocation,
+            submissionStatus,
+            payment,
+            paymentStatus
         });
 }
 
@@ -37,6 +47,7 @@ const removeResearchPaperById = async ({id}) => {
 
 module.exports = {
     addResearchPaper,
+    getResearchPaperByUserId,
     getResearchPaperById,
     updateResearchPaper,
     removeResearchPaperById

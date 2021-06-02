@@ -1,12 +1,17 @@
 const workShop = require('./').db('conferenceMT').collection('WorkshopColl');
 
-const save = async ({userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate,proposalStatus, fileLocation}) =>{
-    const result = await workShop.insertOne({userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate,proposalStatus, fileLocation});
+const save = async ({userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate, proposalStatus, fileLocation}) =>{
+    const result = await workShop.insertOne({userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate, proposalStatus, fileLocation});
     return  result.ops[0];
 }
 
-const getById = async (userId) =>{
-    return await workShop.find({userID:userId});
+const getByUserId = async (userId) =>{
+    const courser = await workShop.find({userID:userId});
+    return courser.toArray();
+}
+
+const getById = async (id) =>{
+    return await workShop.findOne({id});
 }
 
 const removeById = async (id) =>{
@@ -18,4 +23,4 @@ const update = async (id ,{userID, presenterName, workShopTitle, email, affiliat
     return  result.ops[0];
 }
 
-module.exports = {save, getById, removeById, update};
+module.exports = {save,getByUserId, getById, removeById, update};

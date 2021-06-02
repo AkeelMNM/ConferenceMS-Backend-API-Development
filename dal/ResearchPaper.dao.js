@@ -9,9 +9,13 @@ const save = async (
     return  result.ops[0];
 }
 
-const getById = async (userID) =>{
+const getByUserId = async (userID) =>{
     const courser =  await researchPaper.find({userID:userID});
     return courser.toArray();
+}
+
+const getById = async (id) =>{
+    return await researchPaper.findOne({id});
 }
 
 const removeById = async (id) =>{
@@ -24,4 +28,4 @@ const update = async (id ,{userID, authorName, paperTitle, email, submittedDate,
     return  result.ops[0];
 }
 
-module.exports = {save, getById, removeById, update};
+module.exports = {save, getByUserId, getById, removeById, update};
