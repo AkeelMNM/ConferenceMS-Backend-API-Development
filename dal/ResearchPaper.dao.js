@@ -1,4 +1,5 @@
 const researchPaper = require('./').db('conferenceMT').collection('ResearchPaperColl');
+const ObjectId = require("mongodb").ObjectId;
 
 const save = async (
     {userID,authorName, paperTitle, email, submittedDate, researchPFileLocation,submissionStatus,payment,paymentStatus}) =>{
@@ -15,7 +16,7 @@ const getByUserId = async (userID) =>{
 }
 
 const getById = async (id) =>{
-    return await researchPaper.findOne({id});
+    return await researchPaper.findOne({_id:ObjectId(id)});
 }
 
 const removeById = async (id) =>{
