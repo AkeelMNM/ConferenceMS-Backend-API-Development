@@ -28,7 +28,7 @@ router.get('/:id', async ctx =>{
     ctx.body = await getWorkShopByUserId(userID);
 });
 
-router.get('work/:id', async ctx =>{
+router.get('/work/:id', async ctx =>{
     const id = ctx.params.id;
     ctx.body = await getWorkShopById(id);
 });
