@@ -10,6 +10,11 @@ const save = async (
     return  result.ops[0];
 }
 
+const getAll = async () =>{
+    const courser =  await researchPaper.find({});
+    return courser.toArray();
+}
+
 const getByUserId = async (userID) =>{
     const courser =  await researchPaper.find({userID:userID});
     return courser.toArray();
@@ -29,4 +34,4 @@ const update = async (id ,{userID, authorName, paperTitle, email, submittedDate,
     return  result.ops[0];
 }
 
-module.exports = {save, getByUserId, getById, removeById, update};
+module.exports = {save, getAll, getByUserId, getById, removeById, update};

@@ -1,4 +1,4 @@
-const { save, getByUserId,getById, removeById, update} = require('../dal/ResearchPaper.dao');
+const { save, getAll, getByUserId,getById, removeById, update} = require('../dal/ResearchPaper.dao');
 
 /**
  * @important  file input should be separated when saving the file i'm only saving the location of the file
@@ -17,6 +17,10 @@ const addResearchPaper = async ({userID,authorName, paperTitle, email,researchPF
         paymentStatus:"Not Available"
     }
     return await save(ResearchPaper);
+}
+
+const getAllResearchPaper = async () => {
+    return await getAll();
 }
 
 const getResearchPaperByUserId = async (userID) => {
@@ -47,6 +51,7 @@ const removeResearchPaperById = async ({id}) => {
 
 module.exports = {
     addResearchPaper,
+    getAllResearchPaper,
     getResearchPaperByUserId,
     getResearchPaperById,
     updateResearchPaper,

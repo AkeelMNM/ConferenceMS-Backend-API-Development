@@ -6,6 +6,11 @@ const save = async ({userID, presenterName, workShopTitle, email, affiliation,co
     return  result.ops[0];
 }
 
+const getAll = async () =>{
+    const courser = await workShop.find({});
+    return courser.toArray();
+}
+
 const getByUserId = async (userId) =>{
     const courser = await workShop.find({userID:userId});
     return courser.toArray();
@@ -24,4 +29,4 @@ const update = async (id ,{userID, presenterName, workShopTitle, email, affiliat
     return  result.ops[0];
 }
 
-module.exports = {save,getByUserId, getById, removeById, update};
+module.exports = {save,getAll,getByUserId, getById, removeById, update};

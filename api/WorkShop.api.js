@@ -1,4 +1,4 @@
-const { save,getByUserId, getById, removeById, update} = require('../dal/Workshop.dao');
+const { save, getAll, getByUserId, getById, removeById, update} = require('../dal/Workshop.dao');
 
 /**
  * @important  file input should be separated when saving the file i'm only saving the location of the file
@@ -18,6 +18,10 @@ const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, af
     }
 
     return await save(WorkShop);
+}
+
+const getAllWorkShop = async () =>{
+    return await getAll();
 }
 
 const getWorkShopByUserId = async (userID) => {
@@ -48,6 +52,7 @@ const removeWorkShopById = async ({id}) => {
 
 module.exports = {
     addWorkShopPaper,
+    getAllWorkShop,
     getWorkShopByUserId,
     getWorkShopById,
     updateWorkShop,

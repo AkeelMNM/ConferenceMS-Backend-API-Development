@@ -1,6 +1,6 @@
 const Router = require('@koa/router');
 
-const {addWorkShopPaper,getWorkShopByUserId, getWorkShopById, updateWorkShop, removeWorkShopById} = require('../api/WorkShop.api');
+const {addWorkShopPaper, getAllWorkShop, getWorkShopByUserId, getWorkShopById, updateWorkShop, removeWorkShopById} = require('../api/WorkShop.api');
 
 const router = new Router({
     prefix:'/workShop'
@@ -22,6 +22,10 @@ router.post('/',async ctx => {
     ctx.response.state = 201;
     ctx.body =workShop;
 })
+
+router.get('/', async ctx =>{
+    ctx.body = await getAllWorkShop();
+});
 
 router.get('/:id', async ctx =>{
     const userID = ctx.params.id;
