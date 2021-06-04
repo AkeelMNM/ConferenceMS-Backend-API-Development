@@ -21,7 +21,7 @@ const getById = async (id) =>{
 }
 
 const removeById = async (id) =>{
-    return await workShop.removeOne({id});
+    return await workShop.deleteOne({_id:ObjectId(id)});
 }
 
 const update = async (id ,{userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate,proposalStatus, fileLocation}) =>{

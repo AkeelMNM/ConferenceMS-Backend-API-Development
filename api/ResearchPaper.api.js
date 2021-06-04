@@ -31,21 +31,22 @@ const getResearchPaperById = async (id) => {
     return await getById(id);
 }
 
-const updateResearchPaper = async (id,{userID,authorName, paperTitle, email,researchPFileLocation,submissionStatus,payment,paymentStatus}) =>{
+const updateResearchPaper = async (id,{userID,authorName, paperTitle, email,researchPFileLocation}) =>{
     return await update(id,
         {
-            userID,authorName,
+            userID,
+            authorName,
             paperTitle,
             email,
-            submittedDate:new Date().toISOString().slice(0, 10),
+            submittedDate: new Date().toISOString().slice(0, 10),
             researchPFileLocation,
-            submissionStatus,
-            payment,
-            paymentStatus
+            submissionStatus:"pending",
+            payment:0,
+            paymentStatus:"Not Available"
         });
 }
 
-const removeResearchPaperById = async ({id}) => {
+const removeResearchPaperById = async (id) => {
     return await removeById(id);
 }
 

@@ -32,21 +32,22 @@ const getWorkShopById = async (id) => {
     return await getById(id);
 }
 
-const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, affiliation,contactNumber, submittedDate,proposalStatus, fileLocation}) =>{
+const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, affiliation,contactNumber,fileLocation}) =>{
     return await update(id,
         {
             userID,
             presenterName,
             workShopTitle,
-            email, affiliation,
+            email,
+            affiliation,
             contactNumber,
-            submittedDate:new Date().toISOString().slice(0, 10),
-            proposalStatus,
+            submittedDate: new Date().toISOString().slice(0, 10),
+            proposalStatus:"pending",
             fileLocation
         });
 }
 
-const removeWorkShopById = async ({id}) => {
+const removeWorkShopById = async (id) => {
     return await removeById(id);
 }
 

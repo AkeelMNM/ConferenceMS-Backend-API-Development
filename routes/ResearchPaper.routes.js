@@ -46,8 +46,9 @@ router.put('/:id',async ctx =>{
     ctx.body =researchPaper;
 })
 
-router.del('/:id',async ctx =>{
+router.delete('/:id',async ctx =>{
     const id = ctx.params.id;
+    console.log("this is Delete"+ id)
     ctx.response.state = 204;
     ctx.body = await removeResearchPaperById(id);
 })

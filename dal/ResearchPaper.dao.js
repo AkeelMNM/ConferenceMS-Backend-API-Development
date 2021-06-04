@@ -25,7 +25,7 @@ const getById = async (id) =>{
 }
 
 const removeById = async (id) =>{
-    return await researchPaper.removeOne({id});
+    return await researchPaper.deleteOne({_id:ObjectId(id)});
 }
 
 const update = async (id ,{userID, authorName, paperTitle, email, submittedDate, researchPFileLocation,submissionStatus,payment,paymentStatus}) =>{
