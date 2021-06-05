@@ -1,8 +1,8 @@
 
 const Users = require('./').db('conferenceMT').collection('userCollection');
 
-const getAll = async () => {
-    const cursor = await Users.getAll();
+const getAll = async ()=> {
+    const cursor = await Users.find();
     return cursor.toArray();
 };
 

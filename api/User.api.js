@@ -12,9 +12,9 @@ const deleteUser = async (id) => {
     return await removeById(id);
 };
 
-const updateUser = async (id, {name, email, type, password}) => {
+const updateUser = async (id, {fullName, email, type, password}) => {
     const user ={
-        name,
+        fullName,
         email,
         type,
         password
