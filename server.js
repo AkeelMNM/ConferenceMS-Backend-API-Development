@@ -1,10 +1,7 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
-// const LoginRoutes = require('./routes/Login.routes');
 const RegisterRoutes = require('./routes/Register.routes');
 const UserRoutes = require('./routes/User.routes');
-
-require('./dal');
 
 const app = new Koa();
 
@@ -12,15 +9,22 @@ app.use(bodyParser());
 
 // app.use(LoginRoutes.routes()).use(LoginRoutes.allowedMethods());
 
-app.use(RegisterRoutes.routes())
-    .use(RegisterRoutes.allowedMethods());
+// app.use(HomeRouter.routes())
+//     .use(HomeRouter.allowedMethods());
 
-app.use(UserRoutes.routes())
-    .use(UserRoutes.allowedMethods());
+app.use(RegisterRoutes.routes()).use(RegisterRoutes.allowedMethods());
+
+app.use(UserRoutes.routes()).use(UserRoutes.allowedMethods());
 
 app.use(ctx =>{
-    ctx.body = "Conference Management System Backend"
-})
+    ctx.body = "Conference Management System Backend";
+});
 
-app.listen(3000);
-console.log('ConferenceMS Application is up and running');
+app.listen(3000, err => {
+   if(err) {
+       console.log(err);
+       return;
+   }
+
+    console.log('ConferenceMS Application is up and running');
+});
