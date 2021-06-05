@@ -2,7 +2,7 @@ const Router = require("@koa/router");
 const {adminCreateUser} = require("../api/AdminCreateUser.api");
 
 const router = new Router({
-    prefix: '/AdminCreateUser'
+    prefix: '/adminCreateUser'
 });
 
 router.post('/', async ctx =>{

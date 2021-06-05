@@ -3,7 +3,7 @@ const Router = require("@koa/router");
 const {createAttendeesPayment, getAllPayment, getPaymentById, deletePayment, UpdateAttendeesPayment} = require('../api/AttendeesPayment.api');
 
 const router = new Router({
-    prefix: '/AttendeesPayment'
+    prefix: '/attendeesPayment'
 });
 
 router.post('/', async ctx => {

@@ -2,7 +2,7 @@ const Router = require("@koa/router");
 const {getAllUser, getUserById, deleteUser, updateUser} = require("../api/User.api");
 
 const router = new Router({
-    prefix: '/User'
+    prefix: '/user'
 });
 
 router.get('/', async ctx => {
