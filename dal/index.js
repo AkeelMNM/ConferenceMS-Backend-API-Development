@@ -6,8 +6,8 @@ const client = new MongoClient('mongodb://localhost:27017',{
 })
 
 client.connect(error => {
-    if(err) {
-        console.error(err);
+    if(error) {
+        console.error(error);
         process.exit(-1)
     }
 

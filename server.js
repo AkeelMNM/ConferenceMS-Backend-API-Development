@@ -1,8 +1,10 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
-const LoginRoutes = require('./routes/Login.routes');
+// const LoginRoutes = require('./routes/Login.routes');
 const RegisterRoutes = require('./routes/Register.routes');
 const UserRoutes = require('./routes/User.routes');
+
+require('./dal');
 
 const app = new Koa();
 
