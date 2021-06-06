@@ -1,5 +1,3 @@
-const UUID = require('uuid')
-
 const {SaveUser} = require('../dal/AdminCreateUser.dao');
 
 const adminCreateUser = async ({fullName, email, type, password}) => {
