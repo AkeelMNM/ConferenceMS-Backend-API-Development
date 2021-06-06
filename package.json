@@ -19,11 +19,14 @@
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
-    "koa": "^2.13.1"
+    "koa": "^2.13.1",
+    "koa-jwt": "^4.0.1",
+    "node": "^16.1.0"
   },
   "devDependencies": {
+    "config.json": "^0.0.4",
+    "jsonwebtoken": "^8.5.1",
     "koa-bodyparser": "^4.3.0",
-    "mongodb": "^3.6.6",
-    "uuid": "^8.3.2"
+    "mongodb": "^3.6.6"
   }
 }
