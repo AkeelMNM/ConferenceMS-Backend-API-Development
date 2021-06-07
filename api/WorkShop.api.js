@@ -4,6 +4,9 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
  * @important  file input should be separated when saving the file i'm only saving the location of the file
  */
 
+/**
+ * Adding Workshop proposal
+ */
 const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, affiliation,contactNumber,fileLocation}) =>{
     let WorkShop ={
         userID,
@@ -20,18 +23,31 @@ const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, af
     return await save(WorkShop);
 }
 
+/**
+ * Get all Workshop proposal
+ */
 const getAllWorkShop = async () =>{
     return await getAll();
 }
 
+/**
+ * Get Workshop proposal by the User
+ */
 const getWorkShopByUserId = async (userID) => {
     return await getByUserId(userID);
 }
 
+/**
+ * Get Workshop proposal by ID
+ */
 const getWorkShopById = async (id) => {
     return await getById(id);
 }
 
+
+/**
+ * Update Workshop proposal by Workshop presenter
+ */
 const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, affiliation,contactNumber,fileLocation}) =>{
     return await update(id,
         {
@@ -47,6 +63,39 @@ const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, a
         });
 }
 
+/**
+ *  update Workshop proposal
+ *  this method is used to a particular workshop update approval status
+ */
+const updateWorkshopApprovals = async (id,{userID, presenterName, workShopTitle, email, affiliation, contactNumber, submittedDate, proposalStatus, fileLocation}) =>{
+    return await update(id,
+        {
+            userID,
+            presenterName,
+            workShopTitle,
+            email,
+            affiliation,
+            contactNumber,
+            submittedDate,
+            proposalStatus,
+            fileLocation
+        });
+}
+
+/**
+ *  Approval of Workshop proposal
+ *  this method is used to update a particular Research paper approval
+ *  when the Reviewer approve or Reject the proposal
+ */
+const approvalStatus = async (id) =>{
+    let Workshop = await getWorkShopById(id);
+    Workshop.proposalStatus = "Approved"
+    return await updateWorkshopApprovals(id,Workshop);
+}
+
+/**
+ * Remove Workshop proposal
+ */
 const removeWorkShopById = async (id) => {
     return await removeById(id);
 }
@@ -57,5 +106,6 @@ module.exports = {
     getWorkShopByUserId,
     getWorkShopById,
     updateWorkShop,
+    approvalStatus,
     removeWorkShopById
 };

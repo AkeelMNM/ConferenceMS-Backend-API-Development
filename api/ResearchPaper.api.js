@@ -4,6 +4,9 @@ const { save, getAll, getByUserId,getById, removeById, update} = require('../dal
  * @important  file input should be separated when saving the file i'm only saving the location of the file
  */
 
+/**
+ *  Adding Research paper submissions
+ */
 const addResearchPaper = async ({userID,authorName, paperTitle, email,researchPFileLocation}) =>{
     let ResearchPaper ={
         userID,
@@ -19,18 +22,30 @@ const addResearchPaper = async ({userID,authorName, paperTitle, email,researchPF
     return await save(ResearchPaper);
 }
 
+/**
+ *  Get All Research paper submissions
+ */
 const getAllResearchPaper = async () => {
     return await getAll();
 }
 
+/**
+ *  Get Research paper submissions By userId
+ */
 const getResearchPaperByUserId = async (userID) => {
     return await getByUserId(userID);
 }
 
+/**
+ *  Get Research paper submissions By Id
+ */
 const getResearchPaperById = async (id) => {
     return await getById(id);
 }
 
+/**
+ *  update Research paper submissions of researcher
+ */
 const updateResearchPaper = async (id,{userID,authorName, paperTitle, email,researchPFileLocation}) =>{
     return await update(id,
         {
@@ -40,12 +55,58 @@ const updateResearchPaper = async (id,{userID,authorName, paperTitle, email,rese
             email,
             submittedDate: new Date().toISOString().slice(0, 10),
             researchPFileLocation,
-            submissionStatus:"pending",
+            submissionStatus:"Pending",
             payment:0,
             paymentStatus:"Not Available"
         });
 }
 
+/**
+ *  update Research paper submissions
+ *  this method is used to a particular Research paper update approval status or add payment and update payment status
+ */
+const updateResearchApprovals = async (id,{userID,authorName, paperTitle, email,submittedDate, researchPFileLocation, submissionStatus, payment, paymentStatus}) =>{
+    return await update(id,
+        {
+            userID,
+            authorName,
+            paperTitle,
+            email,
+            submittedDate,
+            researchPFileLocation,
+            submissionStatus,
+            payment,
+            paymentStatus
+        });
+}
+
+/**
+ *  Approval of Research paper submissions
+ *  this method is used to update a particular Research paper approval
+ *  when the Reviewer approve or Reject the submission
+ */
+const approvalStatus = async (id) =>{
+    let ResearchPaper = await getResearchPaperById(id);
+    ResearchPaper.submissionStatus = "Approved"
+    return await updateResearchApprovals(id,ResearchPaper);
+}
+
+/**
+ *  Payment of Research paper submissions
+ *  this method is used to update a particular Research paper payment status and add payment amount
+ *  when the Researcher submission is approved and Researcher paying to present at conference
+ */
+const paymentForSubmission = async (id,{pStatus,amount}) =>{
+    let ResearchPaper = await getResearchPaperById(id);
+    ResearchPaper.paymentStatusStatus = pStatus
+    ResearchPaper.payment = amount;
+    return await updateResearchApprovals(id,ResearchPaper);
+
+}
+
+/**
+ *  Remove Research paper submissions
+ */
 const removeResearchPaperById = async (id) => {
     return await removeById(id);
 }
@@ -55,6 +116,8 @@ module.exports = {
     getAllResearchPaper,
     getResearchPaperByUserId,
     getResearchPaperById,
+    approvalStatus,
     updateResearchPaper,
+    paymentForSubmission,
     removeResearchPaperById
 };

@@ -1,6 +1,6 @@
 const Router = require('@koa/router');
 
-const {addResearchPaper, getAllResearchPaper, getResearchPaperByUserId,getResearchPaperById, updateResearchPaper, removeResearchPaperById} = require('../api/ResearchPaper.api');
+const {addResearchPaper, getAllResearchPaper, getResearchPaperByUserId,getResearchPaperById,approvalStatus, updateResearchPaper, removeResearchPaperById} = require('../api/ResearchPaper.api');
 const {addResearchPaperFile} = require('../api/ResearchPFileUpload.api');
 
 const router = new Router({
@@ -18,6 +18,9 @@ const router = new Router({
     ctx.body =file;
 })*/
 
+/**
+ * Route for add Research paper submission
+ */
 router.post('/',async ctx => {
     let researchPaper = ctx.request.body;
     researchPaper = await addResearchPaper(researchPaper);
@@ -25,20 +28,32 @@ router.post('/',async ctx => {
     ctx.body =researchPaper;
 })
 
+/**
+ * Route for get all Research paper submission
+ */
 router.get('/', async ctx =>{
     ctx.body = await getAllResearchPaper();
 });
 
+/**
+ * Route for get Research paper submission of Researcher
+ */
 router.get('/:id', async ctx =>{
     const userID = ctx.params.id;
     ctx.body = await getResearchPaperByUserId(userID);
 });
 
+/**
+ * Route for get Research paper submission by id
+ */
 router.get('/paper/:id', async ctx =>{
     const id = ctx.params.id;
     ctx.body = await getResearchPaperById(id);
 });
 
+/**
+ * Route for update Research paper submission
+ */
 router.put('/:id',async ctx =>{
     const id = ctx.params.id;
     let researchPaper = ctx.request.body;
@@ -46,6 +61,17 @@ router.put('/:id',async ctx =>{
     ctx.body =researchPaper;
 })
 
+/**
+ * Route for Research paper submission approval
+ */
+router.put('/approval/:id', async ctx => {
+    const id = ctx.params.id;
+    ctx.body = await approvalStatus(id);
+})
+
+/**
+ * Route for remove Research paper submission
+ */
 router.delete('/:id',async ctx =>{
     const id = ctx.params.id;
     console.log("this is Delete"+ id)
