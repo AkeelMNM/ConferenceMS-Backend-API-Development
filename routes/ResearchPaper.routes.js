@@ -1,6 +1,6 @@
 const Router = require('@koa/router');
 
-const {addResearchPaper, getAllResearchPaper, getResearchPaperByUserId,getResearchPaperById,approvalStatus, updateResearchPaper, removeResearchPaperById} = require('../api/ResearchPaper.api');
+const {addResearchPaper, getAllResearchPaper, getResearchPaperByUserId,getResearchPaperById,approvalStatus, updateResearchPaper,paymentForSubmission, removeResearchPaperById} = require('../api/ResearchPaper.api');
 const {addResearchPaperFile} = require('../api/ResearchPFileUpload.api');
 
 const router = new Router({
@@ -70,11 +70,19 @@ router.put('/approval/:id', async ctx => {
 })
 
 /**
+ * Route for Research paper submission approval
+ */
+router.put('/payment/:id', async ctx => {
+    const id = ctx.params.id;
+    let payment = ctx.request.body;
+    ctx.body = await paymentForSubmission(id,payment);
+})
+
+/**
  * Route for remove Research paper submission
  */
 router.delete('/:id',async ctx =>{
     const id = ctx.params.id;
-    console.log("this is Delete"+ id)
     ctx.response.state = 204;
     ctx.body = await removeResearchPaperById(id);
 })

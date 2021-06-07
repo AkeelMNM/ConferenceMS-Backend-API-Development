@@ -98,7 +98,7 @@ const approvalStatus = async (id) =>{
  */
 const paymentForSubmission = async (id,{pStatus,amount}) =>{
     let ResearchPaper = await getResearchPaperById(id);
-    ResearchPaper.paymentStatusStatus = pStatus
+    ResearchPaper.paymentStatus = pStatus
     ResearchPaper.payment = amount;
     return await updateResearchApprovals(id,ResearchPaper);
 
