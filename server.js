@@ -3,6 +3,7 @@ const bodyParser = require('koa-bodyparser');
 const UserRoutes = require('./routes/User.routes');
 const AdminCreateUserRoutes = require('./routes/AdminCreateUser.routes');
 const AttendeesPaymentRoutes = require('./routes/AttendeesPayment.routes');
+const cors = require('@koa/cors');
 
 const app = new Koa();
 
