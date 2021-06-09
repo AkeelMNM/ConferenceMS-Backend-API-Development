@@ -7,6 +7,7 @@ const cors = require('@koa/cors');
 
 const app = new Koa();
 
+app.use(cors());
 app.use(bodyParser());
 
 // app.use(LoginRoutes.routes()).use(LoginRoutes.allowedMethods());
