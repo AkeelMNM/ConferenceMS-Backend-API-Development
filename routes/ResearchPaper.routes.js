@@ -28,25 +28,6 @@ router.post('/',async ctx => {
     ctx.body = researchPaper;
 })
 
-/**
- * Route for approval Research paper submission
- */
-router.post('/approval/:id',async ctx => {
-    let id = ctx.params.id;
-    let researchPaper = await approvalStatus(id);
-    ctx.response.state = 201;
-    ctx.body = researchPaper;
-})
-
-/**
- * Route for payment for Research paper submission
- */
-router.post('/payment/:id',async ctx => {
-    let id = ctx.params.id;
-    let researchPaper = await paymentForSubmission(id);
-    ctx.response.state = 201;
-    ctx.body = researchPaper;
-})
 
 /**
  * Route for get all Research paper submission
@@ -82,22 +63,23 @@ router.put('/:id',async ctx =>{
 })
 
 /**
- * Route for Research paper submission approval
+ * Route for approval Research paper submission
  */
-router.put('/approval/:id', async ctx => {
-    const id = ctx.params.id;
-    ctx.body = await approvalStatus(id);
+router.put('/approval/:id',async ctx => {
+    let id = ctx.params.id;
+    let researchPaper = await approvalStatus(id);
+    ctx.body = researchPaper;
 })
 
 /**
- * Route for Research paper submission payment
+ * Route for payment for Research paper submission
  */
-router.put('/payment/:id', async ctx => {
-    const id = ctx.params.id;
-    let payment = ctx.request.body;
-    ctx.body = await paymentForSubmission(id,payment);
+router.put('/payment/:id',async ctx => {
+    let id = ctx.params.id;
+    let researchPaper = ctx.request.body;
+    researchPaper = await paymentForSubmission(id,researchPaper);
+    ctx.body = researchPaper;
 })
-
 /**
  * Route for remove Research paper submission
  */

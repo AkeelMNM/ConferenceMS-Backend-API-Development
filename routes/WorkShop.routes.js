@@ -27,17 +27,6 @@ router.post('/',async ctx => {
 })
 
 /**
- * Route for approval of Workshop proposal
- */
-router.post('/approval/:id',async ctx => {
-    let id = ctx.params.id;
-    let workShop = await approvalStatus(id);
-    ctx.response.state = 201;
-    ctx.body = workShop;
-})
-
-
-/**
  * Route for get All Workshop proposal
  */
 router.get('/', async ctx =>{
@@ -71,7 +60,7 @@ router.put('/:id',async ctx =>{
 })
 
 /**
- * Route for Workshop proposal approval
+ * Route for approval of Workshop proposal
  */
 router.put('/approval/:id', async ctx => {
     const id = ctx.params.id;
