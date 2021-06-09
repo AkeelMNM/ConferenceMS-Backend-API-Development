@@ -23,8 +23,19 @@ router.post('/',async ctx => {
     let workShop = ctx.request.body;
     workShop = await addWorkShopPaper(workShop);
     ctx.response.state = 201;
-    ctx.body =workShop;
+    ctx.body = workShop;
 })
+
+/**
+ * Route for approval of Workshop proposal
+ */
+router.post('/approval/:id',async ctx => {
+    let id = ctx.params.id;
+    let workShop = await approvalStatus(id);
+    ctx.response.state = 201;
+    ctx.body = workShop;
+})
+
 
 /**
  * Route for get All Workshop proposal
@@ -56,7 +67,7 @@ router.put('/:id',async ctx =>{
     const id = ctx.params.id;
     let workShop = ctx.request.body;
     ctx.body = await updateWorkShop(id,workShop);
-    ctx.body =workShop;
+    ctx.body = workShop;
 })
 
 /**

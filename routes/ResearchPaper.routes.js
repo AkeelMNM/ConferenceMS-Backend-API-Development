@@ -25,7 +25,27 @@ router.post('/',async ctx => {
     let researchPaper = ctx.request.body;
     researchPaper = await addResearchPaper(researchPaper);
     ctx.response.state = 201;
-    ctx.body =researchPaper;
+    ctx.body = researchPaper;
+})
+
+/**
+ * Route for approval Research paper submission
+ */
+router.post('/approval/:id',async ctx => {
+    let id = ctx.params.id;
+    let researchPaper = await approvalStatus(id);
+    ctx.response.state = 201;
+    ctx.body = researchPaper;
+})
+
+/**
+ * Route for payment for Research paper submission
+ */
+router.post('/payment/:id',async ctx => {
+    let id = ctx.params.id;
+    let researchPaper = await paymentForSubmission(id);
+    ctx.response.state = 201;
+    ctx.body = researchPaper;
 })
 
 /**
@@ -58,7 +78,7 @@ router.put('/:id',async ctx =>{
     const id = ctx.params.id;
     let researchPaper = ctx.request.body;
     ctx.body = await updateResearchPaper(id,researchPaper);
-    ctx.body =researchPaper;
+    ctx.body = researchPaper;
 })
 
 /**
