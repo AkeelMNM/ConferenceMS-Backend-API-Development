@@ -85,9 +85,9 @@ const { save, getAll, getByUserId,getById, removeById, update} = require('../dal
      *  this method is used to update a particular Research paper approval
      *  when the Reviewer approve or Reject the submission
      */
-    const approvalStatus = async (id) =>{
+    const approvalStatus = async (id,{aStatus}) =>{
         let ResearchPaper = await getResearchPaperById(id);
-        ResearchPaper.submissionStatus = "Approved"
+        ResearchPaper.submissionStatus = aStatus;
         return await updateResearchApprovals(id,ResearchPaper);
     }
 

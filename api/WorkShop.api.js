@@ -87,9 +87,9 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
      *  this method is used to update a particular Research paper approval
      *  when the Reviewer approve or Reject the proposal
      */
-    const approvalStatus = async (id) =>{
+    const approvalStatus = async (id,{aStatus}) =>{
         let Workshop = await getWorkShopById(id);
-        Workshop.proposalStatus = "Approved"
+        Workshop.proposalStatus = aStatus;
         return await updateWorkshopApprovals(id,Workshop);
     }
 

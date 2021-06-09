@@ -64,7 +64,9 @@ router.put('/:id',async ctx =>{
  */
 router.put('/approval/:id', async ctx => {
     const id = ctx.params.id;
-    ctx.body = await approvalStatus(id);
+    let workShop = ctx.request.body;
+    workShop = await approvalStatus(id,workShop);
+    ctx.body = workShop;
 })
 
 /**

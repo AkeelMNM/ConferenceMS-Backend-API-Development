@@ -67,7 +67,8 @@ router.put('/:id',async ctx =>{
  */
 router.put('/approval/:id',async ctx => {
     let id = ctx.params.id;
-    let researchPaper = await approvalStatus(id);
+    let approval = ctx.request.body;
+    let researchPaper = await approvalStatus(id,approval);
     ctx.body = researchPaper;
 })
 
@@ -76,8 +77,8 @@ router.put('/approval/:id',async ctx => {
  */
 router.put('/payment/:id',async ctx => {
     let id = ctx.params.id;
-    let researchPaper = ctx.request.body;
-    researchPaper = await paymentForSubmission(id,researchPaper);
+    let researchPayment = ctx.request.body;
+    let researchPaper = await paymentForSubmission(id,researchPayment);
     ctx.body = researchPaper;
 })
 /**
