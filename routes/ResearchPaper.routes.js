@@ -90,7 +90,7 @@ router.put('/approval/:id', async ctx => {
 })
 
 /**
- * Route for Research paper submission approval
+ * Route for Research paper submission payment
  */
 router.put('/payment/:id', async ctx => {
     const id = ctx.params.id;
