@@ -1,29 +1,42 @@
-const fileUpload = require('./').db('conferenceMT').collection('files');
+const aws = require("aws-sdk");
+const fs = require("fs");
+const dotenv = require('dotenv');
+dotenv.config();
 
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
-// mongoose.connect('mongodb://localhost:27017/conferenceMT');
-// const conn = mongoose.connection;
-// const Grid = require('gridfs-stream');
-// const fs = require('fs');
-// //const mongo = require('mongodb')
-// //const db = new mongo.Db('conferenceMT',new mongo.Server("127.0.0.1", 27017));
+const saveFile = async ({ fileName, filePath, fileType }) => {
+    return new Promise((resolve, reject) => {
+        aws.config.update({
+            region: "ap-south-1",
+            accessKeyId: process.env.ACCESS_KEY_ID,
+            secretAccessKey: process.env.SECRET_ACCESS_KEY,
+        });
 
-//Grid.mongo = mongoose.mongo;
+        const s3 = new aws.S3({
+            apiVersion: "2006-03-01",
+        });
 
-const saveFile = async (file) => {
-    /*conn.once('open',()=>{
-        console.log('Connection open for file Upload');
-        const gfs = Grid(conn.db);
+        const stream = fs.createReadStream(filePath);
+        stream.on("error", function(err) {
+            reject(err);
+        });
 
-        let writeStream = gfs.createWriteStream();
-        fs.createReadStream(file).pipe(writeStream);
+        s3.upload(
+            {
+                ACL: "public-read",
+                Bucket: "afprouploadfiles",
+                Body: stream,
+                Key: fileName,
+                ContentType: fileType,
+            },
+            function(err, data) {
+                if (err) {
+                    reject(err);
+                } else if (data) {
+                    resolve({ key: data.Key, url: data.Location });
+                }
+            }
+        );
+    });
+};
 
-
-    })*/
-
-    const result = await fileUpload.insertOne({file});
-    return  result.ops[0];
-}
-
-module.exports = {saveFile};
+module.exports = { saveFile };
