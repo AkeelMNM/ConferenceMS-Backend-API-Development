@@ -3,6 +3,9 @@ const fs = require("fs");
 const dotenv = require('dotenv');
 dotenv.config();
 
+/**
+ * store file to the amazon aws S3
+ */
 const saveFile = async ({ fileName, filePath, fileType }) => {
     return new Promise((resolve, reject) => {
         aws.config.update({

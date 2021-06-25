@@ -1,8 +1,5 @@
 const { save, getAll, getByUserId,getById, removeById, update} = require('../dal/ResearchPaper.dao');
 
-/**
- * @important  file input should be separated when saving the file i'm only saving the location of the file
- */
 
     /**
      *  Adding Research paper submissions

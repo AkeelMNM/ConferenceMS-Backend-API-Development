@@ -2,28 +2,10 @@ const Router = require('@koa/router');
 
 
 const {addResearchPaper, getAllResearchPaper, getResearchPaperByUserId,getResearchPaperById,approvalStatus, updateResearchPaper,paymentForSubmission, removeResearchPaperById} = require('../api/ResearchPaper.api');
-const {fileUploads} = require('../api/FileUpload.api');
+
 
 const router = new Router({
     prefix:'/researchPaper'
-})
-
-/**
- * @important  file input should be separated when saving the file i'm only saving the location of the file
- */
-
-router.post('/upload',async ctx => {
-    /*let file = ctx.request.files.file;
-    console.log(file)
-    let files = {
-        fileName: file.name,
-        filePath: file.path,
-        fileType: file.type
-    }
-    console.log(JSON.stringify(files))
-    const {key,url} = await fileUploads(files);
-    */ctx.response.state = 201;
-    ctx.body = {key:"123",url:"hello"};
 })
 
 /**
@@ -31,7 +13,6 @@ router.post('/upload',async ctx => {
  */
 router.post('/',async ctx => {
     let researchPaper = ctx.request.body;
-    console.log(JSON.stringify(researchPaper))
     researchPaper = await addResearchPaper(researchPaper);
     ctx.response.state = 201;
     ctx.body = researchPaper;
