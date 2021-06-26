@@ -1,7 +1,16 @@
 const crypto = require("crypto");
 const secret = "pppppppppppppppppppppppppppppppp";
 
+/**
+ * @author : A.M Zumry
+ * Registration Number : IT19175126
+ */
+
+/**
+ * This function is to encrypt the password
+ */
 const encrypt = (password) => {
+    // Creates 16 byte iv, buffer
     const iv = Buffer.from(crypto.randomBytes(16));
     const cipher = crypto.createCipheriv("aes-256-ctr", Buffer.from(secret), iv);
 
@@ -10,22 +19,23 @@ const encrypt = (password) => {
         cipher.final(),
     ]);
 
-    return encryptedPassword.toString("hex");
+    return iv.toString('hex') + ':' + encryptedPassword.toString("hex");
 };
 
+/**
+ * This function is to decrypt the password
+ */
 const decrypt = (encryption) => {
-    const decipher = crypto.createDecipheriv(
-        "aes-256-ctr",
-        Buffer.from(secret),
-        Buffer.from(encryption.iv, "hex")
-    );
+    const encryptionParts = encryption.split(':');
+    const iv = Buffer.from(encryptionParts.shift(),'hex');
+    const encryptedText = Buffer.from(encryptionParts.join(':'), 'hex');
 
-    const decryptedPassword = Buffer.concat([
-        decipher.update(Buffer.from(encryption.password, "hex")),
-        decipher.final(),
-    ]);
+    const decipher = crypto.createDecipheriv("aes-256-ctr", Buffer.from(secret),iv);
+    let decrypted = decipher.update(encryptedText);
 
-    return decryptedPassword.toString();
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    return decrypted.toString();
 };
 
 module.exports = { encrypt, decrypt };
