@@ -1,5 +1,18 @@
-const {save, getAll, getById, removeById, update} = require('../dal/User.dao');
-const {encrypt} = require("../EncryptionHandler");
+const {save, getAll, getById, removeById, update, findByEmailAndPassword,findPasswordByEmail} = require('../dal/User.dao');
+const {encrypt, decrypt} = require("../EncryptionHandler");
+
+const LoginUser = async (email, password) => {
+    const Password = await findPasswordByEmail(email);
+    console.log('DB password',Password);
+    if (Password !== ''){
+        const decryptPassword = decrypt(Password);
+        console.log('decrypt password',decryptPassword);
+        if(decryptPassword === password) {
+            return await findByEmailAndPassword(email, Password);
+        }
+    }
+
+};
 
 const createUser = async ({fullName, email, type, password}) => {
     const hashedPassword = encrypt(password);
@@ -36,6 +49,7 @@ const updateUser = async (id, {fullName, email, type, password}) => {
 };
 
 module.exports = {
+    LoginUser,
     createUser,
     getAllUser,
     getUserById,

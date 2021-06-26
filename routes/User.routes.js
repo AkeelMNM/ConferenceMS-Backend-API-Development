@@ -1,8 +1,14 @@
 const Router = require("@koa/router");
-const {createUser, getAllUser, getUserById, deleteUser, updateUser} = require("../api/User.api");
+const {LoginUser, createUser, getAllUser, getUserById, deleteUser, updateUser} = require("../api/User.api");
 
 const router = new Router({
     prefix: '/user'
+});
+
+router.get('/login/:email,:password', async ctx =>{
+    const email = ctx.params.email;
+    const password = ctx.params.password;
+    ctx.body = await LoginUser(email, password);
 });
 
 router.post('/register', async ctx =>{

@@ -26,10 +26,21 @@ const update = async (id, {fullName, email, type, password}) => {
     return result.ops[0];
 };
 
+const findPasswordByEmail = async email => {
+    const result = await  Users.findOne({email:email});
+    return await result.password;
+}
+
+const findByEmailAndPassword = async (email, password) => {
+    return await Users.findOne({email:email,password:password});
+};
+
 module.exports = {
     save,
     getAll,
     getById,
     removeById,
-    update
+    update,
+    findPasswordByEmail,
+    findByEmailAndPassword
 };
