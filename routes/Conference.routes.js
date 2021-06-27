@@ -40,13 +40,18 @@ router.put('/:id', async ctx => {
 
 //Route for approval of Conference
 
-router.put('/approval/:id', async ctx => {
-    let Conference = ctx.request.body;
+router.put('/approve/:id', async ctx => {
+
+    let Approval = ctx.request.body;
     let id = ctx.params.id;
-    Conference = await approvalStatus(id,Conference);
+    console.log(id);
+    Approval = await approvalStatus(id,Approval);
+    console.log(Approval);
     ctx.response.status = 201;
-    ctx.body = Conference;
+    ctx.body = Approval;
 })
+
+
 
 
 

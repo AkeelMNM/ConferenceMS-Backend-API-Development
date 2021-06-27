@@ -68,8 +68,9 @@ const updateConferenceApprovals  =async (id,{creator,conference_title,message,st
  */
 const approvalStatus = async (id,{aStatus}) =>{
     let Conference = await getPost(id);
-    Conference.proposalStatus = aStatus;
-    return await updateConferenceApprovals(id,Conference);
+    console.log(Conference);
+    Conference.status= aStatus;
+    return await updatePost(id,Conference);
 }
 
 module.exports = {
