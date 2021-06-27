@@ -2,7 +2,7 @@ const Koa = require('koa');
 //serve = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const HomeRouter = require('./routes/home.router');
-const PostRouter = require('./routes/post.routes');
+const PostRouter = require('./routes/Conference.routes');
 const cors = require('@koa/cors');
 
 //execute mondodb related files

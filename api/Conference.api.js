@@ -1,7 +1,7 @@
 const  UUID = require ('uuid')
 //const  posts = new Map();
 
-const {getAll, getById, removeById, save, update} = require('../dal/posts.dao');
+const {getAll, getById, removeById, save, update} = require('../dal/Conference.dao');
 
 const  createPost = async ({creator,conference_title,message,status,postedDate}) =>{
     const post ={
@@ -47,11 +47,38 @@ const updatePost  =async (id,{creator,conference_title,message,status,postedDate
     return await update(id,post);
 }
 
+//update conference approvals
+const updateConferenceApprovals  =async (id,{creator,conference_title,message,status,postedDate}) => {
+    return await update(id,
+        {
+
+        creator:creator,
+        conference_title:conference_title,
+        message:message,
+        status:status,
+        //postedDate: new Date()
+        postedDate:postedDate
+        });
+}
+
+/**
+ *  Approval of conference proposal
+ *  this method is used to update a particular conferenceapproval
+ *  when the Editor approve or Reject the proposal
+ */
+const approvalStatus = async (id,{aStatus}) =>{
+    let Conference = await getPost(id);
+    Conference.proposalStatus = aStatus;
+    return await updateConferenceApprovals(id,Conference);
+}
+
 module.exports = {
     createPost,
     getPost,
     getPosts,
     deletePost,
-    updatePost
+    updatePost,
+    updateConferenceApprovals,
+    approvalStatus
 
 };

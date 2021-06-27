@@ -1,15 +1,15 @@
 const Router = require('@koa/router'),
-    {createPost,getPost,getPosts,deletePost,updatePost}= require('../api/posts.api');
+    {createPost,getPost,getPosts,deletePost,updatePost,approvalStatus}= require('../api/Conference.api');
 
 const router=new Router({
     prefix:'/posts'
 
 });
-//get
+//get Conference
 router.get('/',  async ctx => {
     ctx.body = await getPosts();
 });
-//create
+//create Conference
 router.post('/', async ctx => {
     let post = ctx.request.body;
     post = await createPost(post);
@@ -18,17 +18,17 @@ router.post('/', async ctx => {
     ctx.body = post;
 
 });
-//get by id
+//get Conference by id
 router.get('/:id', async ctx => {
     const id = ctx.params.id;
     ctx.body =await getPost(id);
 });
-//delete
+//delete Conference
 router.del('/:id', async ctx => {
     const id = ctx.params.id;
     ctx.body =await deletePost(id);
 });
-//update
+//update Conference
 router.put('/:id', async ctx => {
     let post = ctx.request.body;
     let id= ctx.params.id;
@@ -37,5 +37,17 @@ router.put('/:id', async ctx => {
     ctx.body = post;
 
 });
+
+//Route for approval of Conference
+
+router.put('/approval/:id', async ctx => {
+    let Conference = ctx.request.body;
+    let id = ctx.params.id;
+    Conference = await approvalStatus(id,Conference);
+    ctx.response.status = 201;
+    ctx.body = Conference;
+})
+
+
 
 module.exports = router;
