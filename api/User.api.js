@@ -1,17 +1,31 @@
 const {save, getAll, getById, removeById, update, findByEmailAndPassword,findPasswordByEmail} = require('../dal/User.dao');
+const {findPasswordByEmailInAdmin, findByEmailAndPasswordInAdmin} = require('../dal/AdminCreateUser.dao');
 const {encrypt, decrypt} = require("../EncryptionHandler");
 
 const LoginUser = async (email, password) => {
-    const Password = await findPasswordByEmail(email);
-    console.log('DB password',Password);
-    if (Password !== ''){
-        const decryptPassword = decrypt(Password);
-        console.log('decrypt password',decryptPassword);
+    const UserPassword = await findPasswordByEmail(email);
+    const AdminPassword = await findPasswordByEmailInAdmin(email);
+
+    if(UserPassword !== null && AdminPassword === null){
+        const decryptPassword = decrypt(UserPassword);
         if(decryptPassword === password) {
-            return await findByEmailAndPassword(email, Password);
+            return await findByEmailAndPassword(email, UserPassword);
+        }
+        else {
+            console.log('Invalid Password');
+        }
+    }else if(UserPassword === null && AdminPassword !== null){
+        const decryptPassword = decrypt(AdminPassword);
+        if(decryptPassword === password) {
+            return await findByEmailAndPasswordInAdmin(email, AdminPassword);
+        }
+        else {
+            console.log('Invalid Password');
         }
     }
-
+    else{
+        console.log('No data');
+    }
 };
 
 const createUser = async ({fullName, email, type, password}) => {

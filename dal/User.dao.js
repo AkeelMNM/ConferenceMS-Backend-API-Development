@@ -28,7 +28,11 @@ const update = async (id, {fullName, email, type, password}) => {
 
 const findPasswordByEmail = async email => {
     const result = await  Users.findOne({email:email});
-    return await result.password;
+    if(result !== null ){
+        return await result.password;
+    }else {
+        return null;
+    }
 }
 
 const findByEmailAndPassword = async (email, password) => {
