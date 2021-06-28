@@ -1,14 +1,16 @@
 const Router = require("@koa/router");
-const {LoginUser, createUser, getAllUser, getUserById, deleteUser, updateUser} = require("../api/User.api");
+const {createUser, getAllUser, getUserById, deleteUser, updateUser} = require("../api/User.api");
+const{getToken} = require('../auth');
 
 const router = new Router({
     prefix: '/user'
 });
 
-router.get('/login/:email,:password', async ctx =>{
-    const email = ctx.params.email;
-    const password = ctx.params.password;
-    ctx.body = await LoginUser(email, password);
+router.post('/login', async ctx =>{
+    let user = ctx.request.body;
+    let token = await getToken(user);
+    ctx.response.status = 201;
+    ctx.body = token;
 });
 
 router.post('/register', async ctx =>{
