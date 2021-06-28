@@ -6,9 +6,10 @@ const router = new Router({
     prefix: '/attendeesPayment'
 });
 
-router.post('/', async ctx => {
+router.post('/pay', async ctx => {
     let payment = ctx.request.body;
     payment = await createAttendeesPayment(payment);
+    console.log('I am route payment' , payment);
     ctx.response.status = 201;
     ctx.body = payment;
 });

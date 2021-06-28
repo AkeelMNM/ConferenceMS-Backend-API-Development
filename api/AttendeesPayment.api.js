@@ -1,13 +1,15 @@
+const TicketId = require('uuid')
 const {save, getAll, getById, removeById, update} = require('../dal/AttendeesPayment.dao');
 
-const createAttendeesPayment = async (name, email, payment, ticketID ) =>{
+const createAttendeesPayment = async ({name, email, payment}) =>{
     let payments = {
         name,
         email,
         payment,
-        PayDate: new Date().toISOString().slice(0, 10),
-        ticketID
+        payDate: new Date().toISOString().slice(0, 10),
+        ticketID: TicketId.v4()
     }
+    console.log('I am ApI' , payments);
     return await save(payments);
 };
 
@@ -28,7 +30,7 @@ const UpdateAttendeesPayment = async (id, {name, email, payment, ticketID}) =>{
         name,
         email,
         payment,
-        PayDate: new Date().toISOString().slice(0, 10),
+        payDate: new Date().toISOString().slice(0, 10),
         ticketID
     }
     return await update(id,payments);
