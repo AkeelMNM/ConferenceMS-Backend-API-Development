@@ -1,8 +1,8 @@
-const Router = require('@koa/router')
 /*
 * IT 19167442
 * author : Nusky
 * */
+const Router = require('@koa/router')
 const router = new Router({
     prefix: '/home'
 });
