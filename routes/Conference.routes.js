@@ -2,7 +2,7 @@ const Router = require('@koa/router'),
     {createPost,getPost,getPosts,deletePost,updatePost,approvalStatus}= require('../api/Conference.api');
 
 const router=new Router({
-    prefix:'/posts'
+    prefix:'/Conference'
 
 });
 //get Conference

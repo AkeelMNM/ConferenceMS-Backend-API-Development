@@ -1,10 +1,10 @@
 //create the DataBase and the Collection
-const posts = require('./').db('posts').collection('posts');
+const posts = require('./').db('conferenceMT').collection('conference');
 const ObjectId = require("mongodb").ObjectId;
 
 //insert the data into Database
-const save = async ({id, creator, conference_title,message,status, postedDate}) => {
-    const result = await posts.insertOne({id, creator, conference_title,message,status, postedDate});
+const save = async ({id, workshopId,creator, conference_title,message,status, postedDate}) => {
+    const result = await posts.insertOne({id,workshopId, creator, conference_title,message,status, postedDate});
     return result.ops[0];
 };
 //retrieve all the data from the Database
@@ -22,8 +22,8 @@ const removeById = async id => {
 };
 
 //updates the data in the database
-const update = async (id, {creator, conference_title,message,status, postedDate}) => {
-    const result = await posts.replaceOne({id}, {id, creator, conference_title,message,status, postedDate});
+const update = async (id, {workshopId,creator, conference_title,message,status, postedDate}) => {
+    const result = await posts.replaceOne({id}, {id,workshopId, creator, conference_title,message,status, postedDate});
     return result.ops[0];
 };
 

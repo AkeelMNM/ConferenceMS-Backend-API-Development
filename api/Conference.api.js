@@ -3,9 +3,10 @@ const  UUID = require ('uuid')
 
 const {getAll, getById, removeById, save, update} = require('../dal/Conference.dao');
 
-const  createPost = async ({creator,conference_title,message,status,postedDate}) =>{
+const  createPost = async ({workshopId,creator,conference_title,message,status,postedDate}) =>{
     const post ={
     id: UUID.v4(),
+        workshopId,
         creator:creator,
         conference_title:conference_title,
         message:message,
@@ -34,9 +35,9 @@ const deletePost  =async (id) => {
     return await removeById(id);
 }
 //update data
-const updatePost  =async (id,{creator,conference_title,message,status,postedDate}) => {
+const updatePost  =async (id,{workshopId,creator,conference_title,message,status,postedDate}) => {
     const post ={
-
+        workshopId,
         creator:creator,
         conference_title:conference_title,
         message:message,
@@ -48,10 +49,10 @@ const updatePost  =async (id,{creator,conference_title,message,status,postedDate
 }
 
 //update conference approvals
-const updateConferenceApprovals  =async (id,{creator,conference_title,message,status,postedDate}) => {
+const updateConferenceApprovals  =async (id,{workshopId,creator,conference_title,message,status,postedDate}) => {
     return await update(id,
         {
-
+            workshopId,
         creator:creator,
         conference_title:conference_title,
         message:message,
