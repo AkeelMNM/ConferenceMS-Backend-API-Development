@@ -9,7 +9,6 @@ const createAttendeesPayment = async ({name, email, payment}) =>{
         payDate: new Date().toISOString().slice(0, 10),
         ticketID: TicketId.v4()
     }
-    console.log('I am ApI' , payments);
     return await save(payments);
 };
 

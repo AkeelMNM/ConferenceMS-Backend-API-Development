@@ -9,7 +9,6 @@ const router = new Router({
 router.post('/pay', async ctx => {
     let payment = ctx.request.body;
     payment = await createAttendeesPayment(payment);
-    console.log('I am route payment' , payment);
     ctx.response.status = 201;
     ctx.body = payment;
 });
