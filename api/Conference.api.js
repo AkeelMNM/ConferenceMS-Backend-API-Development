@@ -37,7 +37,7 @@ const deletePost  =async (id) => {
 //update data
 const updatePost  =async (id,{workshopId,creator,conference_title,message,status,postedDate}) => {
     const post ={
-        workshopId,
+        workshopId:workshopId,
         creator:creator,
         conference_title:conference_title,
         message:message,

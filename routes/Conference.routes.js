@@ -32,9 +32,11 @@ router.del('/:id', async ctx => {
 router.put('/:id', async ctx => {
     let post = ctx.request.body;
     let id= ctx.params.id;
-    post = await updatePost(id,post);
+
+   post = await updatePost(id,post);
     ctx.response.status = 201;
     ctx.body = post;
+
 
 });
 
