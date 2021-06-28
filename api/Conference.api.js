@@ -1,6 +1,13 @@
 const  UUID = require ('uuid')
 //const  posts = new Map();
 
+
+/*
+* IT 19167442
+* author : Nusky
+* */
+
+
 const {getAll, getById, removeById, save, update} = require('../dal/Conference.dao');
 
 const  createPost = async ({workshopId,creator,conference_title,message,status,postedDate}) =>{

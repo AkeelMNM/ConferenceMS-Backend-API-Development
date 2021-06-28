@@ -1,3 +1,9 @@
+/*
+* IT 19167442
+* author : Nusky
+* */
+
+
 //create the DataBase and the Collection
 const posts = require('./').db('conferenceMT').collection('conference');
 const ObjectId = require("mongodb").ObjectId;
