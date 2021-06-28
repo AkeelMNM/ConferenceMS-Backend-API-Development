@@ -1,6 +1,7 @@
-
-
-
+/*
+* IT 19167442
+* author : Nusky
+* */
 const Router = require('@koa/router'),
     {createPost,getPost,getPosts,deletePost,updatePost,approvalStatus}= require('../api/Conference.api');
 
@@ -9,10 +10,6 @@ const router=new Router({
 
 });
 
-/*
-* IT 19167442
-* author : Nusky
-* */
 //get Conference
 router.get('/',  async ctx => {
     ctx.body = await getPosts();
@@ -45,7 +42,6 @@ router.put('/:id', async ctx => {
     ctx.response.status = 201;
     ctx.body = post;
 
-
 });
 
 //Route for approval of Conference
@@ -60,9 +56,5 @@ router.put('/approve/:id', async ctx => {
     ctx.response.status = 201;
     ctx.body = Approval;
 })
-
-
-
-
 
 module.exports = router;
