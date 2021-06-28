@@ -37,7 +37,7 @@ const getToken = async (user) => {
         const payload = {sub: User._id};
         const token = jwt.sign(payload, secret, {expiresIn: 3600});
 
-        return {token:token};
+        return {token:token,userID:User._id,type:User.type};
     }
     else {
         return {error:"User can not access."};

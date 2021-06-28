@@ -1,8 +1,8 @@
 
 const PaymentColl = require('./').db('conferenceMT').collection('attendeesPaymentCollection');
 
-const save = async ({userID, name, email, payment, payDate, ticketID}) => {
-    const result = await PaymentColl.insertOne({userID, name, email, payment, payDate, ticketID});
+const save = async ({userID, payment, payDate, ticketID}) => {
+    const result = await PaymentColl.insertOne({userID, payment, payDate, ticketID});
     return result.ops[0];
 };
 
@@ -19,8 +19,8 @@ const removeById = async () => {
     return await PaymentColl.deleteOne({id});
 };
 
-const update = async (id, {userID, name, email, payment, payDate, ticketID}) => {
-    const result = await PaymentColl.replaceOne({id} , {id, userID, name, email, payment, payDate, ticketID });
+const update = async (id, {userID, payment, payDate, ticketID}) => {
+    const result = await PaymentColl.replaceOne({id} , {id, userID, payment, payDate, ticketID });
     return result.ops[0];
 };
 
