@@ -1,4 +1,7 @@
-
+/*
+* IT 19167442
+* author : Nusky
+* */
 const Router = require('@koa/router'),
     {createPost,getPost,getPosts,deletePost,updatePost,approvalStatus}= require('../api/Conference.api');
 
