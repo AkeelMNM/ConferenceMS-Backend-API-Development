@@ -7,7 +7,7 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
     /**
      * Adding Workshop proposal
      */
-    const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, affiliation,contactNumber,fileLocation}) =>{
+    const addWorkShopPaper = async ({userID, presenterName, workShopTitle, email, affiliation,contactNumber,conductorNames,fileLocation}) =>{
         let WorkShop ={
             userID,
             presenterName,
@@ -15,6 +15,7 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
             email,
             affiliation,
             contactNumber,
+            conductorNames,
             submittedDate: new Date().toISOString().slice(0, 10),
             proposalStatus:"pending",
             fileLocation
@@ -48,7 +49,7 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
     /**
      * Update Workshop proposal by Workshop presenter
      */
-    const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, affiliation,contactNumber,fileLocation}) =>{
+    const updateWorkShop = async (id,{userID, presenterName, workShopTitle, email, affiliation,contactNumber,conductorNames,fileLocation}) =>{
         return await update(id,
             {
                 userID,
@@ -57,6 +58,7 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
                 email,
                 affiliation,
                 contactNumber,
+                conductorNames,
                 submittedDate: new Date().toISOString().slice(0, 10),
                 proposalStatus:"pending",
                 fileLocation
@@ -67,7 +69,7 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
      *  update Workshop proposal
      *  this method is used to a particular workshop update approval status
      */
-    const updateWorkshopApprovals = async (id,{userID, presenterName, workShopTitle, email, affiliation, contactNumber, submittedDate, proposalStatus, fileLocation}) =>{
+    const updateWorkshopApprovals = async (id,{userID, presenterName, workShopTitle, email, affiliation, contactNumber,conductorNames, submittedDate, proposalStatus, fileLocation}) =>{
         return await update(id,
             {
                 userID,
@@ -76,6 +78,7 @@ const { save, getAll, getByUserId, getById, removeById, update} = require('../da
                 email,
                 affiliation,
                 contactNumber,
+                conductorNames,
                 submittedDate,
                 proposalStatus,
                 fileLocation
