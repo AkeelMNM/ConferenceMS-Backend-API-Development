@@ -33,7 +33,7 @@ const getToken = async (user) => {
 
     const User = await LoginUser(user.email, user.password);
 
-    if(User !== null){
+    if(User !== null && User.error !== 'Invalid Password' && User.error !== 'No data'){
         const payload = {sub: User._id};
         const token = jwt.sign(payload, secret, {expiresIn: 3600});
 

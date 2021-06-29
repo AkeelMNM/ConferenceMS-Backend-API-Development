@@ -12,7 +12,7 @@ const LoginUser = async (email, password) => {
             return await findByEmailAndPassword(email, UserPassword);
         }
         else {
-            console.log('Invalid Password');
+            return {error: 'Invalid Password'};
         }
     }else if(UserPassword === null && AdminPassword !== null){
         const decryptPassword = decrypt(AdminPassword);
@@ -20,11 +20,11 @@ const LoginUser = async (email, password) => {
             return await findByEmailAndPasswordInAdmin(email, AdminPassword);
         }
         else {
-            console.log('Invalid Password');
+            return {error: 'Invalid Password'};
         }
     }
     else{
-        console.log('No data');
+        return {error: 'No data'};
     }
 };
 
