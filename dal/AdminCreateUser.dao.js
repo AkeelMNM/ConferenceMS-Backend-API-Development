@@ -1,5 +1,5 @@
-
 const User = require('./').db('conferenceMT').collection('administrationCollection');
+const objectID = require("mongodb").ObjectId;
 
 const SaveUser = async ({fullName, email, type, password}) => {
     const result = await User.insertOne({fullName, email, type, password});
@@ -19,8 +19,14 @@ const findByEmailAndPasswordInAdmin = async (email, password) => {
     return await User.findOne({email:email,password:password});
 };
 
+const getByIdInAdminColl = async id => {
+    return await User.findOne({_id:objectID(id)});
+};
+
+
 module.exports = {
     SaveUser,
     findPasswordByEmailInAdmin,
-    findByEmailAndPasswordInAdmin
+    findByEmailAndPasswordInAdmin,
+    getByIdInAdminColl
 };

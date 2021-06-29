@@ -1,5 +1,5 @@
 const {save, getAll, getById, removeById, update, findByEmailAndPassword,findPasswordByEmail} = require('../dal/User.dao');
-const {findPasswordByEmailInAdmin, findByEmailAndPasswordInAdmin} = require('../dal/AdminCreateUser.dao');
+const {findPasswordByEmailInAdmin, findByEmailAndPasswordInAdmin, getByIdInAdminColl} = require('../dal/AdminCreateUser.dao');
 const {encrypt, decrypt} = require("../EncryptionHandler");
 
 const LoginUser = async (email, password) => {
@@ -44,7 +44,18 @@ const getAllUser = async () => {
 };
 
 const getUserById = async (id) => {
-  return await getById(id);
+    const User = await getById(id);
+    const Admin = await getByIdInAdminColl(id);
+
+    if(User !== null && Admin === null){
+        return User;
+    }
+    else if(User === null && Admin !== null){
+        return Admin;
+    }
+    else{
+        return {error:'error'}
+    }
 };
 
 const deleteUser = async (id) => {

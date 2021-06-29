@@ -1,4 +1,3 @@
-
 const Users = require('./').db('conferenceMT').collection('userCollection');
 const objectID = require("mongodb").ObjectId;
 
