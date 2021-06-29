@@ -6,7 +6,7 @@ const router = new Router({
     prefix: '/attendeesPayment'
 });
 
-router.post('/pay',authenticate, async ctx => {
+router.post('/pay', async ctx => {
     // let userId = ctx.request.jwtPayload.sub;
     let payment = ctx.request.body;
     payment = await createAttendeesPayment(payment);

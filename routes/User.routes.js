@@ -1,5 +1,5 @@
 const Router = require("@koa/router");
-const {createUser, getAllUser, getUserById, deleteUser, updateUser} = require("../api/User.api");
+const {createUser, getAllUser, getUserById, deleteUser, updateUser, passwordCheck} = require("../api/User.api");
 const{getToken} = require('../auth');
 
 const router = new Router({
@@ -34,12 +34,19 @@ router.del('/:id', async ctx =>{
     ctx.body = await deleteUser(id);
 });
 
-router.put('/:id', async ctx =>{
-    let user = ctx.request.body;
+router.put('/update/:id', async ctx =>{
+    let User = ctx.request.body;
     let id = ctx.params.id;
-    user = await updateUser(id,user);
+    User = await updateUser(id,User);
     ctx.response.status = 201;
-    ctx.body = user;
+    ctx.body = User;
+});
+
+router.post('/checkPassword', async ctx =>{
+    let user = ctx.request.body;
+    let Pass = await passwordCheck(user);
+    ctx.response.status = 201;
+    ctx.body = Pass;
 });
 
 module.exports = router;

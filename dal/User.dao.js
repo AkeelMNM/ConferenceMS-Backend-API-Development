@@ -21,7 +21,7 @@ const removeById =async id => {
 };
 
 const update = async (id, {fullName, email, type, password}) => {
-    const  result = await Users.replaceOne({id}, {id, fullName, email, type, password});
+    const  result = await Users.replaceOne({_id:objectID(id)}, {fullName, email, type, password});
     return result.ops[0];
 };
 
