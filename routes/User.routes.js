@@ -1,6 +1,6 @@
 const Router = require("@koa/router");
 const {createUser, getAllUser, getUserById, deleteUser, updateUser, passwordCheck} = require("../api/User.api");
-const{getToken} = require('../auth');
+const{getToken} = require('../authentication');
 
 const router = new Router({
     prefix: '/user'

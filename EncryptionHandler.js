@@ -1,5 +1,4 @@
 const crypto = require("crypto");
-const secret = "pppppppppppppppppppppppppppppppp";
 
 /**
  * @author : A.M Zumry
@@ -12,7 +11,7 @@ const secret = "pppppppppppppppppppppppppppppppp";
 const encrypt = (password) => {
     // Creates 16 byte iv, buffer
     const iv = Buffer.from(crypto.randomBytes(16));
-    const cipher = crypto.createCipheriv("aes-256-ctr", Buffer.from(secret), iv);
+    const cipher = crypto.createCipheriv("aes-256-ctr", Buffer.from(process.env.ENCRYPTION_KEY), iv);
 
     const encryptedPassword = Buffer.concat([
         cipher.update(password),
@@ -30,7 +29,7 @@ const decrypt = (encryption) => {
     const iv = Buffer.from(encryptionParts.shift(),'hex');
     const encryptedText = Buffer.from(encryptionParts.join(':'), 'hex');
 
-    const decipher = crypto.createDecipheriv("aes-256-ctr", Buffer.from(secret),iv);
+    const decipher = crypto.createDecipheriv("aes-256-ctr", Buffer.from(process.env.ENCRYPTION_KEY),iv);
     let decrypted = decipher.update(encryptedText);
 
     decrypted = Buffer.concat([decrypted, decipher.final()]);

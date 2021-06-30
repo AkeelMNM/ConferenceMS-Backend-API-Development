@@ -1,12 +1,12 @@
 const Router = require("@koa/router");
 
 const {createAttendeesPayment, getAllPayment, getPaymentById, deletePayment, getTicketsByUser} = require('../api/AttendeesPayment.api');
-const {authenticate} = require('../auth');
+const {verifyAttendees} = require('../authentication');
 const router = new Router({
     prefix: '/attendees'
 });
 
-router.post('/pay', async ctx => {
+router.post('/pay',verifyAttendees, async ctx => {
     // let userId = ctx.request.jwtPayload.sub;
     let payment = ctx.request.body;
     payment = await createAttendeesPayment(payment);
@@ -23,7 +23,7 @@ router.get('/:id', async ctx => {
     ctx.body = await getPaymentById(id);
 });
 
-router.del('/:id',authenticate, async ctx =>{
+router.del('/:id',verifyAttendees, async ctx =>{
     const id = ctx.params.id;
     ctx.body = await deletePayment(id);
 });

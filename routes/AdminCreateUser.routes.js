@@ -1,11 +1,11 @@
 const Router = require("@koa/router");
 const {adminCreateUser} = require("../api/AdminCreateUser.api");
-
+const{verifyAdmin} = require('../authentication');
 const router = new Router({
     prefix: '/adminRegisterUser'
 });
 
-router.post('/', async ctx =>{
+router.post('/',verifyAdmin, async ctx =>{
     let user = ctx.request.body;
     user = await adminCreateUser(user);
     ctx.response.status = 201;

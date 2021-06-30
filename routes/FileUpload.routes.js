@@ -9,7 +9,7 @@ const router = new Router({
 /**
  * Route to file upload to the amazon aws S3
  */
-router.post('/',async ctx => {
+router.post('/', async ctx => {
     let file = ctx.request.files.file;
     let files = {
         fileName: file.name,

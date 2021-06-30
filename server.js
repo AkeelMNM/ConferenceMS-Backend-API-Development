@@ -1,5 +1,4 @@
 const Koa = require('koa');
-const HomeRouter = require('./routes/home.router');
 const PostRouter = require('./routes/Conference.routes');
 const UserRoutes = require('./routes/User.routes');
 const AdminCreateUserRoutes = require('./routes/AdminCreateUser.routes');
@@ -16,8 +15,6 @@ const app = new Koa();
 app.use(cors());
 app.use(koaBody({ multipart: true, json: true }));
 
-app.use(HomeRouter.routes())
-    .use(HomeRouter.allowedMethods());
 
 app.use(PostRouter.routes())
     .use(PostRouter.allowedMethods());

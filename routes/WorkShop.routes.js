@@ -1,25 +1,17 @@
 const Router = require('@koa/router');
 
 const {addWorkShopPaper, getAllWorkShop, getWorkShopByUserId, getWorkShopById, updateWorkShop,approvalStatus, removeWorkShopById} = require('../api/WorkShop.api');
+const{verifyWorkshopConductor} = require('../authentication');
 
 const router = new Router({
     prefix:'/workShop'
 })
 
 
-/*
-router.post('/reFile',async ctx => {
-    let file = ctx.request.body;
-    file = await addResearchPaperFile(file);
-    ctx.response.state = 201;
-    ctx.body =file;
-})
-*/
-
 /**
  * Route for add Workshop proposal
  */
-router.post('/',async ctx => {
+router.post('/',verifyWorkshopConductor,async ctx => {
     let workShop = ctx.request.body;
     workShop = await addWorkShopPaper(workShop);
     ctx.response.state = 201;
@@ -52,7 +44,7 @@ router.get('/work/:id', async ctx =>{
 /**
  * Route for update Workshop proposal
  */
-router.put('/:id',async ctx =>{
+router.put('/:id', verifyWorkshopConductor, async ctx =>{
     const id = ctx.params.id;
     let workShop = ctx.request.body;
     ctx.body = await updateWorkShop(id,workShop);
@@ -62,7 +54,7 @@ router.put('/:id',async ctx =>{
 /**
  * Route for approval of Workshop proposal
  */
-router.put('/approval/:id', async ctx => {
+router.put('/approval/:id',verifyWorkshopConductor, async ctx => {
     const id = ctx.params.id;
     let workShop = ctx.request.body;
     workShop = await approvalStatus(id,workShop);
@@ -72,7 +64,7 @@ router.put('/approval/:id', async ctx => {
 /**
  * Route for remove Workshop proposal
  */
-router.delete('/:id',async ctx =>{
+router.delete('/:id',verifyWorkshopConductor, async ctx =>{
     const id = ctx.params.id;
     ctx.response.state = 204;
     ctx.body = await removeWorkShopById(id);

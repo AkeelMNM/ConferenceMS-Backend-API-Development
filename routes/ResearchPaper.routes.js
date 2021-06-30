@@ -1,8 +1,6 @@
 const Router = require('@koa/router');
-
-
 const {addResearchPaper, getAllResearchPaper, getResearchPaperByUserId,getResearchPaperById,approvalStatus, updateResearchPaper,paymentForSubmission, removeResearchPaperById} = require('../api/ResearchPaper.api');
-
+const {verifyResearcher} = require('../authentication');
 
 const router = new Router({
     prefix:'/researchPaper'
@@ -11,7 +9,7 @@ const router = new Router({
 /**
  * Route for add Research paper submission
  */
-router.post('/',async ctx => {
+router.post('/', verifyResearcher, async ctx => {
     let researchPaper = ctx.request.body;
     researchPaper = await addResearchPaper(researchPaper);
     ctx.response.state = 201;
@@ -45,7 +43,7 @@ router.get('/paper/:id', async ctx =>{
 /**
  * Route for update Research paper submission
  */
-router.put('/:id',async ctx =>{
+router.put('/:id', verifyResearcher, async ctx =>{
     const id = ctx.params.id;
     let researchPaper = ctx.request.body;
     ctx.body = await updateResearchPaper(id,researchPaper);
@@ -55,7 +53,7 @@ router.put('/:id',async ctx =>{
 /**
  * Route for approval Research paper submission
  */
-router.put('/approval/:id',async ctx => {
+router.put('/approval/:id',verifyResearcher, async ctx => {
     let id = ctx.params.id;
     let approval = ctx.request.body;
     let researchPaper = await approvalStatus(id,approval);
@@ -65,7 +63,7 @@ router.put('/approval/:id',async ctx => {
 /**
  * Route for payment for Research paper submission
  */
-router.put('/payment/:id',async ctx => {
+router.put('/payment/:id', verifyResearcher, async ctx => {
     let id = ctx.params.id;
     let researchPayment = ctx.request.body;
     const pStatus = researchPayment.paymentStatus;
@@ -76,7 +74,7 @@ router.put('/payment/:id',async ctx => {
 /**
  * Route for remove Research paper submission
  */
-router.delete('/:id',async ctx =>{
+router.delete('/:id', verifyResearcher, async ctx =>{
     const id = ctx.params.id;
     ctx.response.state = 204;
     ctx.body = await removeResearchPaperById(id);

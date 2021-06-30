@@ -4,6 +4,7 @@
 * */
 const Router = require('@koa/router'),
     {createPost,getPost,getPosts,deletePost,updatePost,approvalStatus}= require('../api/Conference.api');
+const {verifyEditor,verifyAdmin} = require('../authentication');
 
 const router=new Router({
     prefix:'/Conference'
@@ -15,7 +16,7 @@ router.get('/',  async ctx => {
     ctx.body = await getPosts();
 });
 //create Conference
-router.post('/', async ctx => {
+router.post('/', verifyEditor, async ctx => {
     let post = ctx.request.body;
     post = await createPost(post);
     //creation of http call
@@ -24,17 +25,20 @@ router.post('/', async ctx => {
 
 });
 //get Conference by id
-router.get('/:id', async ctx => {
+router.get('/:id',async ctx => {
     const id = ctx.params.id;
     ctx.body =await getPost(id);
 });
+
 //delete Conference
-router.del('/:id', async ctx => {
+router.del('/:id', verifyEditor, async ctx => {
     const id = ctx.params.id;
     ctx.body =await deletePost(id);
 });
+
+
 //update Conference
-router.put('/:id', async ctx => {
+router.put('/:id',verifyEditor, async ctx => {
     let post = ctx.request.body;
     let id= ctx.params.id;
 
@@ -46,7 +50,7 @@ router.put('/:id', async ctx => {
 
 //Route for approval of Conference
 
-router.put('/approve/:id', async ctx => {
+router.put('/approve/:id',verifyAdmin, async ctx => {
 
     let Approval = ctx.request.body;
     let id = ctx.params.id;
