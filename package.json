@@ -17,10 +17,18 @@
   },
   "homepage": "https://github.com/AkeelMNM/ConferenceMS-Backend-Development#readme",
   "dependencies": {
-    "koa": "^2.13.1"
+    "@koa/cors": "^3.1.0",
+    "@koa/multer": "^3.0.0",
+    "@koa/router": "^10.0.0",
+    "dotenv": "^10.0.0",
+    "koa": "^2.13.1",
+    "mongoose": "^5.12.12"
   },
   "devDependencies": {
+    "aws-sdk": "^2.933.0",
+    "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
-    "mongodb": "^3.6.6"
+    "mongodb": "^3.6.6",
+    "uuid": "^8.3.2"
   }
 }
