@@ -1,9 +1,9 @@
 const Router = require("@koa/router");
 
-const {createAttendeesPayment, getAllPayment, getPaymentById, deletePayment, UpdateAttendeesPayment} = require('../api/AttendeesPayment.api');
+const {createAttendeesPayment, getAllPayment, getPaymentById, deletePayment, getTicketsByUser} = require('../api/AttendeesPayment.api');
 const {authenticate} = require('../auth');
 const router = new Router({
-    prefix: '/attendeesPayment'
+    prefix: '/attendees'
 });
 
 router.post('/pay', async ctx => {
@@ -28,12 +28,9 @@ router.del('/:id',authenticate, async ctx =>{
     ctx.body = await deletePayment(id);
 });
 
-router.put('/',authenticate, async ctx => {
-    let payment = ctx.request.body;
-    let id = ctx.params.id;
-    payment = await UpdateAttendeesPayment(id,payment);
-    ctx.response.status = 201;
-    ctx.body = payment;
+router.get('/ticket/:id', async ctx => {
+    const id = ctx.params.id;
+    ctx.body = await getTicketsByUser(id);
 });
 
 module.exports = router;

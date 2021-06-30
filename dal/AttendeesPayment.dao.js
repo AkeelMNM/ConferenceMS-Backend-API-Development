@@ -15,19 +15,20 @@ const getById = async (id) => {
     return await PaymentColl.findOne({id});
 };
 
-const removeById = async () => {
+const removeById = async (id) => {
     return await PaymentColl.deleteOne({id});
 };
 
-const update = async (id, {userID, payment, payDate, ticketID}) => {
-    const result = await PaymentColl.replaceOne({id} , {id, userID, payment, payDate, ticketID });
-    return result.ops[0];
-};
+const getTicketsByUserId = async id => {
+    const result = await PaymentColl.find({userID:id});
+    return result.toArray();
+}
+
 
 module.exports = {
     save,
     getAll,
     getById,
     removeById,
-    update
+    getTicketsByUserId
 };
