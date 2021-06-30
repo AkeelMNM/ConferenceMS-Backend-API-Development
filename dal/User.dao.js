@@ -7,7 +7,7 @@ const save = async ({fullName, email, type, password}) => {
     return result.ops[0];
 };
 
-const getAll = async ()=> {
+const getAllUsers = async ()=> {
     const cursor = await Users.find();
     return cursor.toArray();
 };
@@ -40,7 +40,7 @@ const findByEmailAndPassword = async (email, password) => {
 
 module.exports = {
     save,
-    getAll,
+    getAllUsers,
     getById,
     removeById,
     update,

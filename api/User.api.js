@@ -1,5 +1,5 @@
-const {save, getAll, getById, removeById, update, findByEmailAndPassword,findPasswordByEmail} = require('../dal/User.dao');
-const {findPasswordByEmailInAdmin, findByEmailAndPasswordInAdmin, getByIdInAdminColl, UpdateAdmin} = require('../dal/AdminCreateUser.dao');
+const {save, getAllUsers, getById, removeById, update, findByEmailAndPassword,findPasswordByEmail} = require('../dal/User.dao');
+const {getAll, findPasswordByEmailInAdmin, findByEmailAndPasswordInAdmin, getByIdInAdminColl, UpdateAdmin} = require('../dal/AdminCreateUser.dao');
 const {encrypt, decrypt} = require("../EncryptionHandler");
 
 /**
@@ -49,7 +49,11 @@ const createUser = async ({fullName, email, type, password}) => {
  * get all User CRUD function
  */
 const getAllUser = async () => {
-    return await getAll();
+    const users = await getAllUsers();
+    const UsersAdmin = await getAll();
+    let Array = [...users,...UsersAdmin]
+
+    return Array;
 };
 
 /**
