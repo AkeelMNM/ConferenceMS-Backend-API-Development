@@ -1,16 +1,22 @@
 const Koa = require('koa');
-const bodyParser = require('koa-bodyparser');
+
 const UserRoutes = require('./routes/User.routes');
 const AdminCreateUserRoutes = require('./routes/AdminCreateUser.routes');
 const AttendeesPaymentRoutes = require('./routes/AttendeesPayment.routes');
+const ResearchPaperRoutes = require('./routes/ResearchPaper.routes');
+const WorkShopRoutes = require('./routes/WorkShop.routes');
+const FileUploadRoutes = require('./routes/FileUpload.routes');
 const cors = require('@koa/cors');
+const koaBody = require("koa-body");
+
+require('./dal');
+
 
 const app = new Koa();
 
 app.use(cors());
-app.use(bodyParser());
 
-// app.use(LoginRoutes.routes()).use(LoginRoutes.allowedMethods());
+app.use(koaBody({ multipart: true, json: true }));
 
 app.use(UserRoutes.routes())
     .use(UserRoutes.allowedMethods());
@@ -20,6 +26,10 @@ app.use(AdminCreateUserRoutes.routes())
 
 app.use(AttendeesPaymentRoutes.routes())
     .use(AttendeesPaymentRoutes.allowedMethods());
+
+app.use(ResearchPaperRoutes.routes()).use(ResearchPaperRoutes.allowedMethods());
+app.use(WorkShopRoutes.routes()).use(WorkShopRoutes.allowedMethods());
+app.use(FileUploadRoutes.routes()).use(FileUploadRoutes.allowedMethods());
 
 app.use(ctx =>{
     ctx.body = "Conference Management System Backend";
