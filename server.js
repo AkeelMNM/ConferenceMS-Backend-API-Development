@@ -1,32 +1,48 @@
 const Koa = require('koa');
-//serve = require('koa-static');
-const bodyParser = require('koa-bodyparser');
 const HomeRouter = require('./routes/home.router');
 const PostRouter = require('./routes/Conference.routes');
+const UserRoutes = require('./routes/User.routes');
+const AdminCreateUserRoutes = require('./routes/AdminCreateUser.routes');
+const AttendeesPaymentRoutes = require('./routes/AttendeesPayment.routes');
+const ResearchPaperRoutes = require('./routes/ResearchPaper.routes');
+const WorkShopRoutes = require('./routes/WorkShop.routes');
+const FileUploadRoutes = require('./routes/FileUpload.routes');
 const cors = require('@koa/cors');
+const koaBody = require("koa-body");
 
-//execute mondodb related files
 require('./dal');
 
-
-//Koa Application
 const app = new Koa();
 app.use(cors());
-//Registering the bodyParser
-app.use(bodyParser());
+app.use(koaBody({ multipart: true, json: true }));
 
-//Registered Routes
 app.use(HomeRouter.routes())
     .use(HomeRouter.allowedMethods());
 
 app.use(PostRouter.routes())
     .use(PostRouter.allowedMethods());
-//koa-static
-//app.use(serve('public/'));
+
+app.use(UserRoutes.routes())
+    .use(UserRoutes.allowedMethods());
+
+app.use(AdminCreateUserRoutes.routes())
+    .use(AdminCreateUserRoutes.allowedMethods());
+
+app.use(AttendeesPaymentRoutes.routes())
+    .use(AttendeesPaymentRoutes.allowedMethods());
+
+app.use(ResearchPaperRoutes.routes()).use(ResearchPaperRoutes.allowedMethods());
+app.use(WorkShopRoutes.routes()).use(WorkShopRoutes.allowedMethods());
+app.use(FileUploadRoutes.routes()).use(FileUploadRoutes.allowedMethods());
 
 app.use(ctx =>{
-    ctx.body = "Hello";
-})
+    ctx.body = "Conference Management System Backend";
+});
 
-app.listen(3000);
-console.log('ConferenceMS Application is up and running');
+app.listen(3000, err => {
+   if(err) {
+       console.log(err);
+       return;
+   }
+    console.log('ConferenceMS Application is up and running');
+});

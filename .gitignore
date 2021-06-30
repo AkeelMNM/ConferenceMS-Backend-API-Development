@@ -1,1 +1,8 @@
 /node_modules/
+/.idea/.gitignore
+/.idea/BackEnd.iml
+/.idea/jsLibraryMappings.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.env
+
