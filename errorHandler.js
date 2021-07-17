@@ -3,7 +3,7 @@
  * Registration Number : IT19175126
  */
 
-module.exports =async (ctx, next) => 
+module.exports =async (ctx, next) => { 
     try {
         await next();
     }catch(err){
