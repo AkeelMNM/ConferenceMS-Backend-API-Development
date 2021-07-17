@@ -1,5 +1,4 @@
-let PaymentColl;
-setTimeout(() =>{PaymentColl = require('./').db('conferenceMT').collection('attendeesPaymentCollection')},1000)
+const PaymentColl = require('./').db('conferenceMT').collection('attendeesPaymentCollection');
 
 const save = async ({userID, payment, payDate, ticketID}) => {
     const result = await PaymentColl.insertOne({userID, payment, payDate, ticketID});

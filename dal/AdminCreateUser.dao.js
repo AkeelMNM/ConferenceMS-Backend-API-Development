@@ -1,5 +1,4 @@
-let User;
-setTimeout(() =>{User = require('./').db('conferenceMT').collection('administrationCollection')},1000)
+const User = require('./').db('conferenceMT').collection('administrationCollection');
 const objectID = require("mongodb").ObjectId;
 
 const SaveUser = async ({fullName, email, type, password}) => {

@@ -1,5 +1,4 @@
-let researchPaper;
-setTimeout(() =>{researchPaper = require('./').db('conferenceMT').collection('ResearchPaperColl')},1000)
+const researchPaper = require('./').db('conferenceMT').collection('ResearchPaperColl');
 const ObjectId = require("mongodb").ObjectId;
 
     /**
