@@ -1,6 +1,6 @@
 const Router = require('@koa/router');
 const {addResearchPaper, getAllResearchPaper, getResearchPaperByUserId,getResearchPaperById,approvalStatus, updateResearchPaper,paymentForSubmission, removeResearchPaperById} = require('../api/ResearchPaper.api');
-const {verifyResearcher} = require('../authentication');
+const {verifyResearcher,verifyReviewer} = require('../authentication');
 
 const router = new Router({
     prefix:'/researchPaper'
@@ -53,7 +53,7 @@ router.put('/:id', verifyResearcher, async ctx =>{
 /**
  * Route for approval Research paper submission
  */
-router.put('/approval/:id',verifyResearcher, async ctx => {
+router.put('/approval/:id',verifyReviewer, async ctx => {
     let id = ctx.params.id;
     let approval = ctx.request.body;
     let researchPaper = await approvalStatus(id,approval);
@@ -67,8 +67,8 @@ router.put('/payment/:id', verifyResearcher, async ctx => {
     let id = ctx.params.id;
     let researchPayment = ctx.request.body;
     const pStatus = researchPayment.paymentStatus;
-    const payment = researchPayment.payment
-    let researchPaper = await paymentForSubmission(id,{pStatus,payment});
+    const amount = researchPayment.payment
+    let researchPaper = await paymentForSubmission(id,{pStatus,amount});
     ctx.body = researchPaper;
 })
 /**
